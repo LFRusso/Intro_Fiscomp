@@ -18,7 +18,7 @@ Considerando $\rho = 0$ e simulando o movimento unidimensional do ciclista, obt�
 
 ![velocidade x tempo](https://github.com/LFRusso/IntroFiscomp/blob/master/P3/1/a/velpt.png)
 
-É visível pelo gráfico que não há limite superior para a velocidade nesse caso. Utilizando o méto de Simpson para integração numérica no vetor contendo todas as velocidades e o intervalor dt de tempo, obtemos que a distância percorrida pelo ciclista foi de 11673.14148 m.
+É visível pelo gráfico que não há limite superior para a velocidade nesse caso. Utilizando o méto de Simpson para integração numérica no vetor contendo todas as velocidades e o intervalor dt de tempo, obtemos que a distância percorrida pelo ciclista foi de 1167.314148 m.
 
 ### B
 
