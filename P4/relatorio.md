@@ -59,11 +59,11 @@ Resulta em uma órbita circular para todos os planetas do sistema solar, testo p
 ![imagem 2](https://raw.githubusercontent.com/LFRusso/Intro_Fiscomp/master/P4/1/b/orbita.png)
 (embora a escala do gráfico não colabore, acredite, elas são circulares)
 
-Agora, para ver como o valor de &\delta = \rho_max/\rho_min - 1& varia com &d\tau&, ploto o seguinte gráfico para o raio inicial sendo igual ao raio da Terra (1). Assim, obtemos:
+Agora, para ver como o valor de $\delta = \rho_{max}/\rho_{min} - 1$ varia com $d\tau$, ploto o seguinte gráfico para o raio inicial sendo igual ao raio da Terra (1). Assim, obtemos:
 
 ![imagem 3](https://raw.githubusercontent.com/LFRusso/Intro_Fiscomp/master/P4/1/b/delta_dt.png)
 
-É visível que resulta em uma reta. Desse gráfico, também tiramos que o valor de $d\tau$ que resulta em $\delta < 10^{-3}$ é $d\t = 0.0009$. Podemos testar, como mostrado a seguir:
+É visível que resulta em uma reta. Desse gráfico, também tiramos que o valor de $d\tau$ que resulta em $\delta < 10^{-3}$ é $d\tau = 0.0009$. Podemos testar, como mostrado a seguir:
 
 ![imagem 4](https://raw.githubusercontent.com/LFRusso/Intro_Fiscomp/master/P4/1/b/excentr.png)
 
