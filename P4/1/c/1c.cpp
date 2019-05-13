@@ -96,7 +96,7 @@ int main()
 
 	for (int i=1; i <= n; i++){
 		Terra.Runge_Kutta(dt); // Iterando planeta pelo método RK4
-		data << sqrt(pow(Terra.x(), 2) + pow(Terra.Vx(), 2)) << "\t" << sqrt(pow(Terra.x(), 2) + pow(Terra.Vy(), 2)) << "\t" << time <<"\n";
+		data << sqrt(pow(Terra.x(), 2) + pow(Terra.y(), 2)) << "\t" << sqrt(pow(Terra.Vx(), 2) + pow(Terra.Vy(), 2)) << "\t" << time <<"\n";
 		data2 << Terra.x() << "\t" << Terra.y() << "\n";
 		// Acima salvo os valores obtidos nos arquivos
 
