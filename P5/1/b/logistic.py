@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 div = 20
 
+# Programa para dividir os diferentes gráficos (de cada r) para cada valor de x0
 
 ai , ax = np.loadtxt("logistic1.dat", delimiter = "\t", unpack = True)
 plt.plot(ai[:div], ax[:div], label = "x = 1/6")

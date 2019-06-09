@@ -4,9 +4,11 @@
 using namespace std;
 
 float G(float x,float r){
-   return r*x*(1 - x);
+   return r*x*(1 - x); // Função G(x, r)
 }
 
+
+// Mesmo progrma que em 2.b, mudando apenas o intervalo de r (para que possamos determinar com maior precisão os pontos de divisão)
 int main(){
    float r = 0;
    float x;

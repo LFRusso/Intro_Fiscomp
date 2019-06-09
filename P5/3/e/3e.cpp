@@ -1,3 +1,5 @@
+// Programa implementando o método de RK4 ao caso especial pedido de a, b, c e d
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -32,18 +34,18 @@ int main(){
 	n = int(total_time/dt);
 	x = 30;
 	y = 4;
-	cout << "Ano" << "\t" << "Lebre" << "\t" << "Lince" << endl;
+	cout << "Ano" << "\t" << "Lebre" << "\t" << "Lince" << endl; // tabela impressa no terminal para comparação posterior
 	cout << 1900 << "\t" << 30 << "\t" << 4 << endl;
 	for(int i = 0; i <= n; i++){
 		time += dt;
 		++auxiliar;
 		
-		if (auxiliar == int(1/dt)){
+		if (auxiliar == int(1/dt)){ // condicional para plotar dados de cada ano no terminal, para comparação posterior
 			cout << 1901+int(time) << "\t" << x << "\t" << y << endl;
 			auxiliar = 0;
 		}
 
-
+		// implementação do método de Runge-Kutta 4
 		Vx[0] = dxdt(x, y);
 		Vy[0] = dydt(x, y);
 
@@ -58,10 +60,11 @@ int main(){
 
 		x += (dt/6) * (Vx[0] + 2*Vx[1] + 2*Vx[2] + Vx[3]);
 		y += (dt/6) * (Vy[0] + 2*Vy[1] + 2*Vy[2] + Vy[3]);
+		//
 
 		data << time << "\t" << x << "\t" << y << endl;
 	}
-	system("python3 graph.py");
+	system("python3 graph.py"); // plot do gráfico
 
 	return 0;
 }

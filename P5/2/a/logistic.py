@@ -1,10 +1,10 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-def f(x):
+def f(x): # função y = f(x) = x
 	return x
 
-def G(x, r):
+def G(x, r): # função G(x, r)
 	return  r*x*(1 - x)
 
 x = np.linspace(0, 1, 1000)

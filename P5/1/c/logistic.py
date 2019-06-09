@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 div = 20
-
+# programa para plotar os dados, confirmando o comportamento exponencial
 
 ai , ax = np.loadtxt("data1.dat", delimiter = "\t", unpack = True)
 plt.plot(ai[:div], ax[:div], label = "x = 1/6")
