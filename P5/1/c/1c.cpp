@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-float G(float x, float r){
+double G(double x, double r){
 	return r*x*(1-x); // Função G deginida
 }
 
@@ -15,15 +15,15 @@ int main(){
 	data1.open("data1.dat"); // arquivo correspondendo a r = 1.5
 	data2.open("data2.dat"); // arquivo correspondendo a r = 2.5
 	data3.open("data3.dat"); // arquivo correspondendo a r = 2.7
-	float r;
-	float x;
-	float E = 0.01; // epsilon
-	float d;
-	float x_;
+	double r;
+	double x;
+	double E = 0.01; // epsilon
+	double d;
+	double x_;
 
 	r = 1.5; // caso r = 1.5
 	for (int j = 1; j <= 5; j++){ // Loop variando x0
-		x = float(j)/6;
+		x = double(j)/6;
 		x_ = x+E; //valor de x0 + epsilon
 		for (int i = 1; i <= 20; i++){
 			x = G(x, r);
@@ -35,7 +35,7 @@ int main(){
 
 	r = 2.5; // caso r = 2.5
 	for (int j = 1; j <= 5; j++){ // Loop variando x0
-		x = float(j)/6;
+		x = double(j)/6;
 		x_ = x+E; //valor de x0 + epsilon
 		for (int i = 1; i <= 20; i++){
 			x = G(x, r);
@@ -47,7 +47,7 @@ int main(){
 
 	r = 2.7; // caso r = 2.7
 	for (int j = 1; j <= 5; j++){ // Loop variando x0
-		x = float(j)/6;
+		x = double(j)/6;
 		x_ = x+E; //valor de x0 + epsilon
 		for (int i = 1; i <= 20; i++){
 			x = G(x, r);

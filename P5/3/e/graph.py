@@ -19,7 +19,7 @@ for i in range(len(list(x))):
 
 
 plt.plot(x, y)
-plt.scatter(fixo, fixo, marker = "x", color = "red", label = "ponto fixo = " + str(fixo))
+#plt.scatter(fixo, fixo, marker = "x", color = "red", label = "ponto fixo = " + str(fixo))
 plt.xlabel("presa")
 plt.ylabel("predador")
 plt.grid()

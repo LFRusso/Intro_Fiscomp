@@ -29,7 +29,7 @@ plt.legend()
 plt.title("X(i) x i\nr = " + str(r[0]))
 plt.grid()
 
-title = "xi" + str(round(r[0], 4)) + ".png"
+title = "xi" + str(round(r[0], 4)).replace('.', ',') + ".png"
 plt.savefig(title)
 plt.close()
 # ================================
@@ -46,7 +46,7 @@ plt.ylabel("d(i)")
 plt.legend()
 plt.title("d(i) x i\nr = " + str(r[0]))
 plt.grid()
-title = "Di" + str(round(r[0], 4)) + ".png"
+title = "Di" + str(round(r[0], 4)).replace('.', ',') + ".png"
 plt.savefig(title)
 plt.close()
 # ================================

@@ -16,7 +16,7 @@ int main(){
 	float r = 0.5; // Valor inicial de r
 	for (int j = 0; j < 3; j++){
 		for (int x =1; x <= 100; x++){
-			data << x << "\t" << G(x, r) << "\t" << r << "\n"; // Calculo x e G(x, r) e salvo um arquivo
+			data << x/float(100) << "\t" << G(x/float(100), r) << "\t" << r << "\n"; // Calculo x e G(x, r) e salvo um arquivo
 		}
 		r *= 2; // Próximo valor de r
 	}
