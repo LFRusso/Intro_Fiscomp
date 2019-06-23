@@ -10,7 +10,7 @@
 \usepackage{natbib}
 \usepackage{amssymb}
 
-\title{Introdução à Física Computacional\\Projeto extra: paradoxo de Parrondo e cadeias de Markov}
+\title{Introdução à Física Computacional\\Paradoxo de Parrondo e cadeias de Markov}
 \author{Luiz Fernando S. E. Santos\\$N^o$ USP: 10892680 }
 \date{Junho de 2019}
 
@@ -23,7 +23,7 @@
 Antes de partirmos para o paradoxo de Parrondo própriamente dito, façamos uma breve análise sobre o principal conceito atuante por trás do inesperado resultado obtido com ele: as \textbf{cadeias de Markov}.\\
 \\
 Para ilustrar, tomemos o exemplo artificial de um espaço contendo duas marcas de lasanha. Por falta de criatividade e economia de caractéres, vamos chamá-las de marcas \textbf{A} e \textbf{B}.\\
-Imagine que uma pesquisa de opinião entre os consumidores assíduos de lasanha revelou que um comprador da marca \textbf{A} tem $80\%$ de chance de, na sua próxima ida ao marcado, comprar novamente a lasanha desta marca (o que, no nosso espaço, implica que há uma chance de $20\%$ dele mudar para a marca \textbf{B}), ao passo que alguém que compra a marca \textbf{B} tem $40\%$ de chance de continuar comprando ela e $60\%$ de chance de mudar para a marca \textbf{A} na próxima. Isso pode ser ilustrado no seguinte esquema:\\
+Imagine que uma pesquisa de opinião entre os consumidores assíduos de lasanha revelou que um comprador da marca \textbf{A} tem $80\%$ de chance de, na sua próxima ida ao mercado, comprar novamente a lasanha desta marca (o que, no nosso espaço, implica que há uma chance de $20\%$ dele mudar para a marca \textbf{B}), ao passo que alguém que compra a marca \textbf{B} tem $40\%$ de chance de continuar comprando ela e $60\%$ de chance de mudar para a marca \textbf{A} na próxima. Isso pode ser ilustrado no seguinte esquema:\\
 
 \begin{figure}[H]
 \centering
@@ -128,11 +128,11 @@ S_{A, i+n} & S_{B, i+n}
 \end{bmatrix}
 \end{equation}
 
-Vamos sair um pouco do nosso problema original e fazer uma generalização dos conceitos que temos até agora: definimos a matriz estocástica como aquela que representa as transições de estado em uma cadeia de Markov. Seus elementos são numeros reais não negativos, que representam as probabilidades. Dependendo da representação escolhida, ela pode ter a soma de cada linha ou coluna (em algus casos ambos) igual à 1. Isso vai depender se ela é \textit{direita} ou \textit{esquerda}, o que básicamente indica "por qual lado" ela está multiplicando o \textbf{vetor estocástico}. No nosso caso, estamos e vamos continuar usando a representação direita da matriz estocástica, mas podemos transicionar fácilmente entre as representações através da identidade:
+Vamos sair um pouco do nosso problema original e fazer uma generalização dos conceitos que temos até agora: definimos a matriz estocástica como aquela que representa as transições de estado em uma cadeia de Markov. Seus elementos são numeros reais não negativos, que representam as probabilidades. Dependendo da representação escolhida, ela pode ter a soma de cada linha ou coluna (em algus casos, ambos) iguais à 1. Isso vai depender se ela é \textit{direita} ou \textit{esquerda}, o que básicamente indica "por qual lado" ela está multiplicando o \textbf{vetor estocástico}. No nosso caso, estamos e vamos continuar usando a representação direita da matriz estocástica, mas podemos transicionar fácilmente entre as representações através da identidade:
 \begin{equation}
 (vM)^{\dagger} = M^{\dagger} v^{\dagger}
 \end{equation}
-Onde $M$ é uma matriz e $v$ um vetor. Como seus elementos são reais o operador adjunto simplesmente indica a transposição.\\
+Onde $M$ é uma matriz e $v$ um vetor. Como seus elementos são reais, o operador adjunto simplesmente indica a transposição.\\
 \\
 Algo muito interessante vem dessa representação. Voltando à visualização das lasanhas, imagine que queremos saber se, em algum momento, a porcentagem de clientes de cada marca irá convergir para algum valor. Isso seria o equivalente à dizer que o próximo estado será igual ao atual:
 
@@ -218,17 +218,17 @@ O motivo pelo qual perdemos todo esse tempo para desenolver estes conceitos fica
 
 \section{O paradoxo de Parrondo}
 
-O paradoxo proposto por Juan Parrondo afirma que, havendo dois jogos (ou quaisquer outros sistemas probabilísticos) \textbf{não relacionados}, os quais jogados separadamente as probabilidades estão sempre contra o jogador, é possível que jogados em conjunto resultem em um resultado favorável à vitória.\\
+O paradoxo proposto por Juan Parrondo afirma que, havendo dois jogos (ou quaisquer outros sistemas probabilísticos) \textbf{não relacionados}, os quais jogados separadamente as chances estão sempre contra o jogador.É possível que, jogados em conjunto, resultem em um resultado favorável à vitória.\\
 \\
 Para visualizarmos essa ideia, vamos tomar dois jogos simples: o primeiro é a clássica roleta.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.55]{roleta.jpg}
-\caption{Roleta de cassino, dezoito casas vermelhas, dezoito pretas e uma verde.}
+\caption{Roleta de cassino, dezoito casas vermelhas, dezoito pretas e duas verdes.}
 \end{figure}
 
-Ela é jogada escolhendo uma entre as duas cores (vermelho ou verde). De qualquer modo, a chance de vitória é de $18$ entre as $37$ casas, ou $48.55\%$. Isso implica que há uma chance de derrota $2.8\%$ maior que de vencer. Imagine que um jogador desavisado decide jogar algumas vezes a roleta. Em um tempo discreto, tomando que ele ganhe $R\$1,00$ se vencer e perca a mesma quantia se perder, seu dinheiro total em relação ao tempo será algo como:
+Ela é jogada escolhendo uma entre as duas cores (vermelho ou verde). De qualquer modo, a chance de vitória é de $18$ entre as $38$ casas, ou $47.37\%$. Isso implica que há uma chance de derrota $5.26\%$ maior que de vencer. Imagine que um jogador desavisado decide jogar algumas vezes a roleta. Em um tempo discreto, tomando que ele ganhe $R\$1,00$ se vencer e perca a mesma quantia se perder, seu dinheiro total em relação ao tempo será algo como:
 
 \begin{figure}[H]
 \centering
@@ -246,8 +246,8 @@ Podemos ver a distribuição de probabilidade do dinheiro ao final do jogo:
 
 O gráfico é bonito, mas as chances para o jogador não. É visível que as chances de se ganhar alguma coisa com esse jogo não são favoráveis.\\
 \\
-O segundo jogo é um pouco mais complicado. Tomemos o seguinte cenário: se o dinheiro que o jogador possue é um mútiplo de três ele joga um \textit{Corner Bet}. Basicamente ele escolhe quatro números, se a roleta parar em um deles, ele ganha 1 (um) real. Caso contrário, ele perde esse valor.\\
-Não é fácil perceber que esse é um jogo em que se perde! $4$ números entre $37$ resulta em uma chance de vitória de apenas $10.81\%$. Mas tem uma detalhe: se o dinheiro do jogador \textbf{não} for um múltiplo de três, ele pode escolher entre vermelho e preto \textbf{e} par ou ímpar. Isso sim dá uma boa vantagem: as chances nesse caso são $72.97\%$ de uma vitória.\\
+O segundo jogo é um pouco mais complicado. Tomemos o seguinte cenário: se o dinheiro que o jogador possue é um mútiplo de três, ele joga um \textit{Corner Bet}. Basicamente ele escolhe quatro números, se a roleta parar em um deles, ele ganha 1 (um) real. Caso contrário, ele perde esse valor.\\
+Não é difícil perceber que esse é um jogo em que se perde! $4$ números entre $38$ resulta em uma chance de vitória de apenas $10.52\%$. Mas tem um detalhe: se o dinheiro do jogador \textbf{não} for um múltiplo de três, ele pode escolher entre vermelho e preto \textbf{e} par ou ímpar. Isso sim dá uma boa vantagem: as chances nesse caso são $76.32\%$ de uma vitória.\\
 \\
 Porém vamos parar e analisar um pouco mais friamente o que está acontecendo:\\
 Tomemos o dinheiro total $n \in \mathbb{Z}$, a condição para jogar o jogo ruim é $n \in \{..., -6, -3, 0, 3, 6, ...\}$, o conjunto dos números múltiplos de 3.\\
@@ -271,9 +271,9 @@ Montando a matriz estocástica desse sistema, obtemos:
 $$
 M = 
 \begin{bmatrix}
-0 & 0.7297 & 0.2703\\
-0.7297 & 0 & 0.2703\\
-0.1081 & 0.8919 & 0
+0 & 0.7632 & 0.2368\\
+0.2368 & 0 & 0.7632\\
+0.1052 & 0.8947 & 0
 \end{bmatrix}
 $$
 Podemos visualizar a convergência para o estado estável $v = \begin{bmatrix} \pi_1 & \pi_2 & \pi_3 \end{bmatrix} $ iterando:
@@ -285,12 +285,12 @@ Podemos visualizar a convergência para o estado estável $v = \begin{bmatrix} \
 \caption{Convergência do vetor de probabilidades para o estado estável.}
 \end{figure}
 
-Assim obtemos que $v = \begin{bmatrix} 0.3454 & 0.4418 & 0.2128 \end{bmatrix}$ é o estado estável dessa matriz estocástica. Para acharmos a chance de vitória nesse jogo, para um grande número de jogadas, fazemos:\\
+Assim obtemos que $v = \begin{bmatrix} 0.1496 & 0.4600 & 0.3865 \end{bmatrix}$ é o estado estável dessa matriz estocástica. Para acharmos a chance de vitória nesse jogo, para um grande número de jogadas, fazemos:\\
 
 $$
-\rho = 1 - 0.1081\pi_1 + 0.7297\pi_2 + 0.7297\pi_3 
+\rho = 1 - 0.7632\pi_1 + 0.7632\pi_2 + 0.1052\pi_3 
 $$
-O que, substituindo os valores encontrados de $v$, nos dá $\rho = 0.485$. Isso quer dizer que a chance de vitória ao longo prazo ainda está contra o jogador.\\
+O que, substituindo os valores encontrados de $v$, nos dá $\rho = 0.4941$. Isso quer dizer que a chance de vitória ao longo prazo ainda está contra o jogador.\\
 Podemos confirmar isso pelo gráfico da distribuição de probabilidade:
 
 \begin{figure}[H]
@@ -299,6 +299,39 @@ Podemos confirmar isso pelo gráfico da distribuição de probabilidade:
 \caption{Distribuição de probabilidade do segundo jogo, para dez mil jogos, com mil jogadas cada.}
 \end{figure}
 
-Então continuamos na desvantagem. Dois jogos de azar independentes, nos quais ambos as chances estão contra o jogador.
+Então continuamos na desvantagem. Dois jogos de azar independentes, nos quais ambos as chances estão contra o jogador.\\
+A parte interessante, porém começa agora:\\
+\\
+Imagine que, antes decidir qual dos dois jogar, o jogador joga uma moeda. Se cair coroa, ele vai para o primeiro jogo. Caso contrário ele vai para o segundo.\\
+Não parece nada demais, mas essa pequena mudança tem reflexos surpreendentes no resultados. Vamos análisar visualmente o que acontece:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{fig4.png}
+\end{figure}
+
+Para montarmos a matriz estocástica desse sistema, simplesmente consideramos \textit{metade} da probabilidade de que cada transição de estado ocorra. Dessa forma, temos:\\
+
+$$
+M = 
+\begin{bmatrix}
+0 & \frac{1}{2}(0.7632 + 0.4737)  & \frac{1}{2}(0.2368 + 0.5263)\\
+\frac{1}{2}(0.2368 + 0.5263) & 0 & \frac{1}{2}(0.7632 + 0.4737)\\
+\frac{1}{2}(0.1052 + 0.4737) & \frac{1}{2}(0.8947 + 0.5263) & 0
+\end{bmatrix}
+$$
+
+Vamos ver a convergência dela:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{graph9.png}
+\includegraphics[scale=0.55]{graph10.png}
+\caption{Convergência do vetor de probabilidades para o estado estável da nova matriz estocástica.}
+\end{figure}
+
+Nosso novo vetor do estado estático é: $v = \begin{bmatrix} 0.2527 & 0.4010 & 0.3444 \end{bmatrix}$. Dessa forma, a probabilidade de vitória é $\rho = $\\
+
+
 
 \end{document}
