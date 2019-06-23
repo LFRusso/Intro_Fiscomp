@@ -1,0 +1,304 @@
+\documentclass[12pt]{article}
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{amssymb}
+
+\title{Introdução à Física Computacional\\Projeto extra: paradoxo de Parrondo e cadeias de Markov}
+\author{Luiz Fernando S. E. Santos\\$N^o$ USP: 10892680 }
+\date{Junho de 2019}
+
+\begin{document}
+\maketitle
+\pagebreak
+
+\section{Cadeias de Markov}
+
+Antes de partirmos para o paradoxo de Parrondo própriamente dito, façamos uma breve análise sobre o principal conceito atuante por trás do inesperado resultado obtido com ele: as \textbf{cadeias de Markov}.\\
+\\
+Para ilustrar, tomemos o exemplo artificial de um espaço contendo duas marcas de lasanha. Por falta de criatividade e economia de caractéres, vamos chamá-las de marcas \textbf{A} e \textbf{B}.\\
+Imagine que uma pesquisa de opinião entre os consumidores assíduos de lasanha revelou que um comprador da marca \textbf{A} tem $80\%$ de chance de, na sua próxima ida ao marcado, comprar novamente a lasanha desta marca (o que, no nosso espaço, implica que há uma chance de $20\%$ dele mudar para a marca \textbf{B}), ao passo que alguém que compra a marca \textbf{B} tem $40\%$ de chance de continuar comprando ela e $60\%$ de chance de mudar para a marca \textbf{A} na próxima. Isso pode ser ilustrado no seguinte esquema:\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{fig1.png}
+\end{figure}
+
+Podemos analisar isso da seguinte forma: imagine que todos os compradores de lasanha vão ao mercado uma vez por semana. Se em dado momento $i$ temos um número de consumidores de \textbf{A}, $S_{A, i}$, e de \textbf{B}, $S_{B, i}$, considerando que o número total de consumidores é fixo e normalizado ($S_{A, i} + S_{B, i} = 1$ para todo $i$), na semana seguinte o novo número de compradores de cada marca será igual à soma dos que estão comprando-a novamente com aqueles que acabaram de mudar da outra:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{fig2.png}
+\end{figure}
+
+Dessa forma, podemos computar uma boa aproximação do novo número de consumidores da seguinte forma:\\
+\begin{align*}
+	S_{A, i+1} = 0.8S_{A, i} + 0.6S_{B, i}\\
+	S_{B, i+1} = 0.2S_{A, i} + 0.4S_{B, i}\\	
+\end{align*}
+
+Podemos escrever isso de forma matricial:\\
+
+\begin{equation}
+\begin{bmatrix}
+S_{A, i} & S_{B, i}
+\end{bmatrix}
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+=
+\begin{bmatrix}
+S_{A, i+1} & S_{B, i+1}
+\end{bmatrix}
+\end{equation}
+
+A matriz quadrada do lado esquerdo da equação é a chamada \textit{matriz de transição} (ou matriz estocástica). Ela possui como linhas o estado atual e nas colunas o próximo estado. No nosso problema, por exempo, o estado atual seria qual marca a pessoa comprou, ao passo que o próximo estado é qual ela vai comprar. Uma pessoa que comprou \textbf{A}, por exemplo, está na primeira linha.\\
+Até aqui tratamos $S_A$ e $S_B$ como populações totais. Vamos fazer uma pequena mudança e tratá-los como porcentagens de uma dada população (isso não muda nada nesse problema, mas em casos mais complexos pode ser necessário).\\
+Note que se queremos prever qual porcentagem dos consumidores comprou cada marca após duas semanas, simplesmente fazemos:\\
+
+\begin{align*}
+\begin{bmatrix}
+S_{A, i+2} & S_{B, i+2}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+S_{A, i+1} & S_{B, i+1}
+\end{bmatrix}
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+=
+\left(
+\begin{bmatrix}
+S_{A, i} & S_{B, i}
+\end{bmatrix}
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+\right)
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+\end{align*}
+E por comutatividade:
+
+$$
+\begin{bmatrix}
+S_{A, i} & S_{B, i}
+\end{bmatrix}
+\left(
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+\right)
+=
+\begin{bmatrix}
+S_{A, i+2} & S_{B, i+2}
+\end{bmatrix}
+$$
+
+Por indução provamos que, se queremos saber saber as populações em um instante $i + n$, simplesmente fazemos:
+
+\begin{equation}
+\begin{bmatrix}
+S_{A, i} & S_{B, i}
+\end{bmatrix}
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}^n
+=
+\begin{bmatrix}
+S_{A, i+n} & S_{B, i+n}
+\end{bmatrix}
+\end{equation}
+
+Vamos sair um pouco do nosso problema original e fazer uma generalização dos conceitos que temos até agora: definimos a matriz estocástica como aquela que representa as transições de estado em uma cadeia de Markov. Seus elementos são numeros reais não negativos, que representam as probabilidades. Dependendo da representação escolhida, ela pode ter a soma de cada linha ou coluna (em algus casos ambos) igual à 1. Isso vai depender se ela é \textit{direita} ou \textit{esquerda}, o que básicamente indica "por qual lado" ela está multiplicando o \textbf{vetor estocástico}. No nosso caso, estamos e vamos continuar usando a representação direita da matriz estocástica, mas podemos transicionar fácilmente entre as representações através da identidade:
+\begin{equation}
+(vM)^{\dagger} = M^{\dagger} v^{\dagger}
+\end{equation}
+Onde $M$ é uma matriz e $v$ um vetor. Como seus elementos são reais o operador adjunto simplesmente indica a transposição.\\
+\\
+Algo muito interessante vem dessa representação. Voltando à visualização das lasanhas, imagine que queremos saber se, em algum momento, a porcentagem de clientes de cada marca irá convergir para algum valor. Isso seria o equivalente à dizer que o próximo estado será igual ao atual:
+
+$$
+\begin{bmatrix}
+S_{A, i} & S_{B, i}
+\end{bmatrix}
+\begin{bmatrix}
+0.8 & 0.2\\
+0.6 & 0.4
+\end{bmatrix}
+=
+\begin{bmatrix}
+S_{A, i} & S_{B, i}
+\end{bmatrix}
+$$
+
+Note que isso é o equivalente à dizer que o vetor estocástico em questão é um autovetor da matriz estocástica, com autovalor 1. Ficamos com o sistema:
+
+$$
+\left\{
+\begin{array}{ll}
+-0.2 S_{A, i} + 0.6 S_{B, i} = 0\\
+0.2 S_{A, i}  - 0.6 S_{B, i} = 0\\
+S_{A, i} + S_{B, i} = 1
+\end{array}\right.
+$$
+
+Temos aqui que a solução para esse sistema lienar é $S_{A, i} = 0.75$, $S_{B, i} = 0.25$. Ou seja, $\begin{bmatrix} 0.75 & 0.25 \end{bmatrix}$ é o \textit{estado estável} dessa matriz de Markov.\\ 
+Podemos ilustrar isso iterando e equação [1] para um certo valor de $i$ e ver o comportamento de $S_{A, i}$ e $S_{B, i}$:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{graph1.png}
+\includegraphics[scale=0.55]{graph2.png}
+\caption{Gráficos da convergência do vetor de probabilidades.}
+\end{figure}
+
+No caso ilustrado acima tomamos um vetor de probabilidade inicial qualquer $\begin{bmatrix} 0.0 & 1.0 \end{bmatrix}$. Pode haver dúvida quanto à se essa convergência seria diferente se o vetor inicial fosse outro. Acontece que haver \textit{outro} estado estável implicaria que o autovalor $1$ referente á matriz estocástica é degenerado (isto é, admite dois ou mais autovetores não paralelos). Isso pode ser mostrado facilmente que não é possível para o caso de uma matriz de ordem 2:
+\begin{equation}
+\begin{bmatrix} v_1 & v_2 \end{bmatrix}
+\begin{bmatrix}
+x & y\\
+z & k
+\end{bmatrix}
+=
+\begin{bmatrix} v_1 & v_2 \end{bmatrix}\\
+\Rightarrow 
+\left\{
+\begin{array}{ll}
+xv_1 + zv_2 - v_1 = 0\\
+yv_1 + kv_2 - v_2 = 0\\
+\end{array}\right.
+\end{equation}
+Mas pela definição:
+\begin{equation}
+\left\{
+\begin{array}{ll}
+x + y = 1\\
+z + k = 1\\
+v_1 + v_2 = 1
+\end{array}\right.
+\end{equation}
+Substituindo [5] em [4], ficamos com:
+\begin{equation}
+\left\{
+\begin{array}{ll}
+xv_1 + zv_2 - v_1 = 0\\
+v_1 + v_2 = 1
+\end{array}\right.
+\end{equation}
+Temos duas variáveis e duas equações lineares. Com exceção de um caso especial, o autovalor 1 admite um e \textbf{apenas} um autovetor. Vale comentar que, se $x = 0$ e $z = 1$ ou vice-versa, algo interessante acontece:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{graph3.png}
+\caption{Caso $x = 0$ e $z = 1$.}
+\end{figure}
+
+Nesse caso da imagem, embora haja apenas um autovetor ($\begin{bmatrix} 0.5 & 0.5 \end{bmatrix}$), a iteração não alcança um estado estático se o vetor inicial não é o próprio autovetor. No outro caso citado, ficamos com a matriz identidade e dizemos que 1 é um autovalor infinitamente degenerado, e seu \textit{autoespaço associado} é a circunferência de raio 1 na origem. Para maiores dimensões há outras complicações.\\
+\\
+O motivo pelo qual perdemos todo esse tempo para desenolver estes conceitos ficará mais claro a seguir.
+
+\section{O paradoxo de Parrondo}
+
+O paradoxo proposto por Juan Parrondo afirma que, havendo dois jogos (ou quaisquer outros sistemas probabilísticos) \textbf{não relacionados}, os quais jogados separadamente as probabilidades estão sempre contra o jogador, é possível que jogados em conjunto resultem em um resultado favorável à vitória.\\
+\\
+Para visualizarmos essa ideia, vamos tomar dois jogos simples: o primeiro é a clássica roleta.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{roleta.jpg}
+\caption{Roleta de cassino, dezoito casas vermelhas, dezoito pretas e uma verde.}
+\end{figure}
+
+Ela é jogada escolhendo uma entre as duas cores (vermelho ou verde). De qualquer modo, a chance de vitória é de $18$ entre as $37$ casas, ou $48.55\%$. Isso implica que há uma chance de derrota $2.8\%$ maior que de vencer. Imagine que um jogador desavisado decide jogar algumas vezes a roleta. Em um tempo discreto, tomando que ele ganhe $R\$1,00$ se vencer e perca a mesma quantia se perder, seu dinheiro total em relação ao tempo será algo como:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{graph4.png}
+\caption{Gráfico de dinheiro em relação ao tempo.}
+\end{figure}
+
+Podemos ver a distribuição de probabilidade do dinheiro ao final do jogo:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{graph5.png}
+\caption{Distribuição de probabilidade para dez mil jogos, com mil jogadas cada.}
+\end{figure}
+
+O gráfico é bonito, mas as chances para o jogador não. É visível que as chances de se ganhar alguma coisa com esse jogo não são favoráveis.\\
+\\
+O segundo jogo é um pouco mais complicado. Tomemos o seguinte cenário: se o dinheiro que o jogador possue é um mútiplo de três ele joga um \textit{Corner Bet}. Basicamente ele escolhe quatro números, se a roleta parar em um deles, ele ganha 1 (um) real. Caso contrário, ele perde esse valor.\\
+Não é fácil perceber que esse é um jogo em que se perde! $4$ números entre $37$ resulta em uma chance de vitória de apenas $10.81\%$. Mas tem uma detalhe: se o dinheiro do jogador \textbf{não} for um múltiplo de três, ele pode escolher entre vermelho e preto \textbf{e} par ou ímpar. Isso sim dá uma boa vantagem: as chances nesse caso são $72.97\%$ de uma vitória.\\
+\\
+Porém vamos parar e analisar um pouco mais friamente o que está acontecendo:\\
+Tomemos o dinheiro total $n \in \mathbb{Z}$, a condição para jogar o jogo ruim é $n \in \{..., -6, -3, 0, 3, 6, ...\}$, o conjunto dos números múltiplos de 3.\\
+Vamos dividir os valores possíveis de $n$ em três grupos diferentes: 
+\begin{align*}
+P_{1} = \{..., -5, -2, 1, 4, ...\}\\
+P_{2} =  \{..., -4, -1, 2, 5, ...\}\\
+P_{3} = \{..., -3, 0, 3, 6, ...\}
+\end{align*}
+
+Bom, se $n \in P_1$ ou $n \in P_2$, fazemos o jogo bom e, caso contrário, o ruim.\\
+Agora vamos aplicar o que vimos a respeito das cadeias de Markov. Acontece que podemos dizer que $n$ está em um dos três diferentes estados, e sua chance de passar de um para o outro pode ser representada assim:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{fig3.png}
+\end{figure}
+
+Montando a matriz estocástica desse sistema, obtemos:
+
+$$
+M = 
+\begin{bmatrix}
+0 & 0.7297 & 0.2703\\
+0.7297 & 0 & 0.2703\\
+0.1081 & 0.8919 & 0
+\end{bmatrix}
+$$
+Podemos visualizar a convergência para o estado estável $v = \begin{bmatrix} \pi_1 & \pi_2 & \pi_3 \end{bmatrix} $ iterando:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{graph6.png}
+\includegraphics[scale=0.55]{graph7.png}
+\caption{Convergência do vetor de probabilidades para o estado estável.}
+\end{figure}
+
+Assim obtemos que $v = \begin{bmatrix} 0.3454 & 0.4418 & 0.2128 \end{bmatrix}$ é o estado estável dessa matriz estocástica. Para acharmos a chance de vitória nesse jogo, para um grande número de jogadas, fazemos:\\
+
+$$
+\rho = 1 - 0.1081\pi_1 + 0.7297\pi_2 + 0.7297\pi_3 
+$$
+O que, substituindo os valores encontrados de $v$, nos dá $\rho = 0.485$. Isso quer dizer que a chance de vitória ao longo prazo ainda está contra o jogador.\\
+Podemos confirmar isso pelo gráfico da distribuição de probabilidade:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{graph8.png}
+\caption{Distribuição de probabilidade do segundo jogo, para dez mil jogos, com mil jogadas cada.}
+\end{figure}
+
+Então continuamos na desvantagem. Dois jogos de azar independentes, nos quais ambos as chances estão contra o jogador.
+
+\end{document}
