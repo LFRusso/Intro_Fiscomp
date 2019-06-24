@@ -11,7 +11,7 @@ def histo(V):
 	return term, freq
 
 dinheiro = 0
-n = 10000
+n = 1000
 V = []
 
 
@@ -19,12 +19,12 @@ for j in range(10000):
 	dinheiro = 0
 	for i in range(n):
 		if(dinheiro % 3 == 0):
-			if(np.random.random() < 0.095):
+			if(np.random.random() < 0.1):
 				dinheiro += 1
 			else:
 				dinheiro -= 1
 		else:
-			if(np.random.random() < 0.76):
+			if(np.random.random() < 0.74):
 				dinheiro += 1
 			else:
 				dinheiro -= 1	
