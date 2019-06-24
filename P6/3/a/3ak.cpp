@@ -30,7 +30,7 @@ int main(){
          }
          med_x  += x/t;
          med_x2 += x2/t;
-
+         
       }
    }
 
