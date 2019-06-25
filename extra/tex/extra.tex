@@ -112,7 +112,7 @@ S_{A, i+2} & S_{B, i+2}
 \end{bmatrix}
 $$
 
-Por indução provamos que, se queremos saber saber as populações em um instante $i + n$, simplesmente fazemos:
+Generalizando, se queremos saber saber as populações em um instante $i + n$, simplesmente fazemos:
 
 \begin{equation}
 \begin{bmatrix}
@@ -161,7 +161,7 @@ S_{A, i} + S_{B, i} = 1
 \end{array}\right.
 $$
 
-Temos aqui que a solução para esse sistema lienar é $S_{A, i} = 0.75$, $S_{B, i} = 0.25$. Ou seja, $\begin{bmatrix} 0.75 & 0.25 \end{bmatrix}$ é o \textit{estado estável} dessa matriz de Markov.\\ 
+Temos aqui que a solução para esse sistema linear é $S_{A, i} = 0.75$, $S_{B, i} = 0.25$. Ou seja, $\begin{bmatrix} 0.75 & 0.25 \end{bmatrix}$ é o \textit{estado estável} dessa matriz de Markov.\\ 
 Podemos ilustrar isso iterando e equação [1] para um certo valor de $i$ e ver o comportamento de $S_{A, i}$ e $S_{B, i}$:
 
 \begin{figure}[H]
@@ -212,42 +212,43 @@ Temos duas variáveis e duas equações lineares. Com exceção de um caso espec
 \caption{Caso $x = 0$ e $z = 1$.}
 \end{figure}
 
-Nesse caso da imagem, embora haja apenas um autovetor ($\begin{bmatrix} 0.5 & 0.5 \end{bmatrix}$), a iteração não alcança um estado estático se o vetor inicial não é o próprio autovetor. No outro caso citado, ficamos com a matriz identidade e dizemos que 1 é um autovalor infinitamente degenerado, e seu \textit{autoespaço associado} é a circunferência de raio 1 na origem. Para maiores dimensões há outras complicações.\\
+Nesse caso da imagem, embora haja apenas um autovetor ($\begin{bmatrix} 0.5 & 0.5 \end{bmatrix}$), a iteração não alcança um estado estático se o vetor inicial não é o próprio autovetor. No outro caso citado, ficamos com a matriz identidade e dizemos que 1 é um autovalor degenerado, e seu \textit{autoespaço associado} é a circunferência de raio 1 na origem. Para maiores dimensões há outras complicações.\\
 \\
-O motivo pelo qual perdemos todo esse tempo para desenolver estes conceitos ficará mais claro a seguir.
+O motivo pelo qual perdemos todo esse tempo para desenvolver estes conceitos ficará mais claro a seguir.
 
 \section{O paradoxo de Parrondo}
 
-O paradoxo proposto por Juan Parrondo afirma que, havendo dois jogos (ou quaisquer outros sistemas probabilísticos) \textbf{não relacionados}, os quais jogados separadamente as chances estão sempre contra o jogador.É possível que, jogados em conjunto, resultem em um resultado favorável à vitória.\\
+O paradoxo proposto por Juan Parrondo afirma que, havendo dois jogos (ou quaisquer outros sistemas probabilísticos) \textbf{não relacionados}, os quais jogados separadamente as chances estão sempre contra o jogador, é possível que, jogados em conjunto, resultem em um resultado favorável à vitória.\\
 \\
 Para visualizarmos essa ideia, vamos tomar dois jogos simples: o primeiro é a clássica roleta.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.55]{roleta.jpg}
-\caption{Roleta de cassino, dezoito casas vermelhas, dezoito pretas e duas verdes.}
+\caption{Roleta de cassino.}
 \end{figure}
 
-Ela é jogada escolhendo uma entre as duas cores (vermelho ou verde). De qualquer modo, a chance de vitória é de $18$ entre as $38$ casas, ou $47.37\%$. Isso implica que há uma chance de derrota $5.26\%$ maior que de vencer. Imagine que um jogador desavisado decide jogar algumas vezes a roleta. Em um tempo discreto, tomando que ele ganhe $R\$1,00$ se vencer e perca a mesma quantia se perder, seu dinheiro total em relação ao tempo será algo como:
+Ela é jogada escolhendo uma entre as duas cores (vermelho ou preto). Imagine que nossa roleta possui $67$ casas no total: $33$ vermelhas, $33$ pretas e uma verde (a neutra). A chance de vitória é de $33$ entre as $67$ casas, aproximadamente  $49.5\%$. Isso implica que há uma chance de derrota $1\%$ maior que a de vencer. Imagine que um jogador desavisado decide jogar algumas vezes a roleta. Em um tempo discreto, tomando que ele ganhe R$\$1,00$ se vencer e perca a mesma quantia se perder, seu dinheiro total em relação ao tempo será algo como:
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{graph4.png}
-\caption{Gráfico de dinheiro em relação ao tempo.}
+\caption{Gráfico de dinheiro em relação ao tempo para certo jogo.}
 \end{figure}
 
-Podemos ver a distribuição de probabilidade do dinheiro ao final do jogo:
+Podemos ver o histograma do dinheiro ao final do jogo:
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{graph5.png}
-\caption{Distribuição de probabilidade para dez mil jogos, com mil jogadas cada.}
+\caption{Histograma para dez mil jogos, com mil jogadas cada.}
 \end{figure}
 
 O gráfico é bonito, mas as chances para o jogador não. É visível que as chances de se ganhar alguma coisa com esse jogo não são favoráveis.\\
 \\
-O segundo jogo é um pouco mais complicado. Tomemos o seguinte cenário: se o dinheiro que o jogador possue é um mútiplo de três, ele joga um \textit{Corner Bet}. Basicamente ele escolhe quatro números, se a roleta parar em um deles, ele ganha 1 (um) real. Caso contrário, ele perde esse valor.\\
-Não é difícil perceber que esse é um jogo em que se perde! $4$ números entre $38$ resulta em uma chance de vitória de apenas $10.52\%$. Mas tem um detalhe: se o dinheiro do jogador \textbf{não} for um múltiplo de três, ele pode escolher entre vermelho e preto \textbf{e} par ou ímpar. Isso sim dá uma boa vantagem: as chances nesse caso são $76.32\%$ de uma vitória.\\
+O segundo jogo é um pouco mais complicado. Tomemos o seguinte cenário: se o dinheiro que o jogador possue é um mútiplo de três, ele puxa uma carta em um deck de $200$. Caso essa carta seja uma das $19$ especiais, ele ganha 1 (um) real. Caso contrário, ele perde esse valor.\\
+Não é difícil perceber que esse é um jogo em que se perde! $19$ cartas entre $200$ resulta em uma chance de vitória de apenas $9.5\%$. Mas tem um detalhe: se o dinheiro do jogador \textbf{não} for um múltiplo de três, ele tem uma boa vantagem: uma moeda enviesada é jogada e suas chances se tornam de $74.5\%$ de uma vitória.\\
+Pode-se até pensar que isso seja vantajoso para o jogador, uma vez que alguém pode, equivocadamente, deduzir que ele tem só $\frac{1}{3}$ de chance de jogar o jogo ruim.
 \\
 Porém vamos parar e analisar um pouco mais friamente o que está acontecendo:\\
 Tomemos o dinheiro total $n \in \mathbb{Z}$, a condição para jogar o jogo ruim é $n \in \{..., -6, -3, 0, 3, 6, ...\}$, o conjunto dos números múltiplos de 3.\\
@@ -259,7 +260,7 @@ P_{3} = \{..., -3, 0, 3, 6, ...\}
 \end{align*}
 
 Bom, se $n \in P_1$ ou $n \in P_2$, fazemos o jogo bom e, caso contrário, o ruim.\\
-Agora vamos aplicar o que vimos a respeito das cadeias de Markov. Acontece que podemos dizer que $n$ está em um dos três diferentes estados, e sua chance de passar de um para o outro pode ser representada assim:
+Agora vamos aplicar o que vimos a respeito das cadeias de Markov. Podemos dizer que $n$ está em um dos três diferentes estados (representados aqui pelos conjuntos), e sua chance de passar de um para o outro pode ser representada assim, dependendo das chances de ganhar ou perder:
 
 \begin{figure}[H]
 \centering
@@ -271,9 +272,9 @@ Montando a matriz estocástica desse sistema, obtemos:
 $$
 M = 
 \begin{bmatrix}
-0 & 0.7632 & 0.2368\\
-0.2368 & 0 & 0.7632\\
-0.1052 & 0.8947 & 0
+0 & 0.745 & 0.255\\
+0.255 & 0 & 0.745\\
+0.095 & 0.905 & 0
 \end{bmatrix}
 $$
 Podemos visualizar a convergência para o estado estável $v = \begin{bmatrix} \pi_1 & \pi_2 & \pi_3 \end{bmatrix} $ iterando:
@@ -285,24 +286,26 @@ Podemos visualizar a convergência para o estado estável $v = \begin{bmatrix} \
 \caption{Convergência do vetor de probabilidades para o estado estável.}
 \end{figure}
 
-Assim obtemos que $v = \begin{bmatrix} 0.1496 & 0.4600 & 0.3865 \end{bmatrix}$ é o estado estável dessa matriz estocástica. Para acharmos a chance de vitória nesse jogo, para um grande número de jogadas, fazemos:\\
+Assim obtemos que $v = \begin{bmatrix} 0.1543 & 0.4621 & 0.3836 \end{bmatrix}$ é o estado estável dessa matriz estocástica. Para acharmos a chance média de vitória nesse jogo, fazemos:\\
 
 $$
-\rho = 1 - 0.7632\pi_1 + 0.7632\pi_2 + 0.1052\pi_3 
+\rho = 0.745\pi_1 + 0.745\pi_2 + 0.095\pi_3 
 $$
-O que, substituindo os valores encontrados de $v$, nos dá $\rho = 0.4941$. Isso quer dizer que a chance de vitória ao longo prazo ainda está contra o jogador.\\
-Podemos confirmar isso pelo gráfico da distribuição de probabilidade:
+
+Note que os $\pi_i$ representam com qual frequência estamos em cada estado, e o número multiplicando é a chance de ganhar nesse estado. Diferente do que se pode imaginar, é bem diferente de $\frac{1}{3}$ para cada.
+Substituindo os valores encontrados de $v$, temos $\rho = 0.4956$, a chance de ganharmos nesse jogo. Isso quer dizer que a chance de vitória ao longo prazo ainda está contra o jogador.\\
+Podemos confirmar isso pelo histograma:
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{graph8.png}
-\caption{Distribuição de probabilidade do segundo jogo, para dez mil jogos, com mil jogadas cada.}
+\caption{Histograma do segundo jogo, para dez mil jogos, com mil jogadas cada.}
 \end{figure}
 
 Então continuamos na desvantagem. Dois jogos de azar independentes, nos quais ambos as chances estão contra o jogador.\\
-A parte interessante, porém começa agora:\\
+A parte interessante, porém, começa agora:\\
 \\
-Imagine que, antes decidir qual dos dois jogar, o jogador joga uma moeda. Se cair coroa, ele vai para o primeiro jogo. Caso contrário ele vai para o segundo.\\
+Imagine que, antes decidir qual dos dois jogar, o jogador joga uma moeda justa. Se cair coroa, ele vai para o primeiro jogo. Caso contrário ele vai para o segundo.\\
 Não parece nada demais, mas essa pequena mudança tem reflexos surpreendentes no resultados. Vamos análisar visualmente o que acontece:
 
 \begin{figure}[H]
@@ -315,9 +318,9 @@ Para montarmos a matriz estocástica desse sistema, simplesmente consideramos \t
 $$
 M = 
 \begin{bmatrix}
-0 & \frac{1}{2}(0.7632 + 0.4737)  & \frac{1}{2}(0.2368 + 0.5263)\\
-\frac{1}{2}(0.2368 + 0.5263) & 0 & \frac{1}{2}(0.7632 + 0.4737)\\
-\frac{1}{2}(0.1052 + 0.4737) & \frac{1}{2}(0.8947 + 0.5263) & 0
+0 & \frac{1}{2}(0.745 + 0.495)  & \frac{1}{2}(0.255 + 0.505)\\
+\frac{1}{2}(0.255 + 0.505) & 0 & \frac{1}{2}(0.745 + 0.495)\\
+\frac{1}{2}(0.095 + 0.495) & \frac{1}{2}(0.909 + 0.505) & 0
 \end{bmatrix}
 $$
 
@@ -330,8 +333,28 @@ Vamos ver a convergência dela:
 \caption{Convergência do vetor de probabilidades para o estado estável da nova matriz estocástica.}
 \end{figure}
 
-Nosso novo vetor do estado estático é: $v = \begin{bmatrix} 0.2527 & 0.4010 & 0.3444 \end{bmatrix}$. Dessa forma, a probabilidade de vitória é $\rho = $\\
+Nosso novo vetor do estado estático é: $v = \begin{bmatrix} 0.2541 & 0.4008 & 0.3451 \end{bmatrix}$. Dessa forma, a probabilidade de vitória é\\
+$$
+\rho = \frac{1}{2}[(0.745 + 0.495)\pi_1 + (0.745 + 0.495)\pi_2 + (0.095 + 0.495)\pi_3]
+$$\\
+Isso nos dá $\rho = 0.5078$, ou $50,78\%$ de chance de vitória! Analisando o histograma desse caso:
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{graph11.png}
+\caption{Histograma o dinheiro ao final do jogo para o caso dos jogos em conjunto.}
+\end{figure}
+
+Vamos ver o que está acontecendo em cada jogo com um pouco mais de precisão:
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{graph12.png}
+\caption{Gráfico da média do dinheiro ao final do jogo em função do número de jogadas.}
+\end{figure}
+
+De maneira mais geral, pode-se verificar a ocorrência desse paradoxo para dois jogos cujo viés é igual à um certo $\epsilon$ (razoávelmente pequeno) contra o jogador, o segundo jogo contando com a existência de um loop de ordem $m > 2$, $m \in \mathbb{Z}$ e positivo. No nosso caso, usamos $m = 3$, isto é, os jogos se repetem após $m$ vitórias ou derrotas seguidas. Vale ressaltar que não necessáriamente o número de estados é igual à ordem do loop! Eles podem ser definidos como se achar melhor para trabalhar.
 
 \end{document}

@@ -34,8 +34,11 @@ void B(int &dinheiro){
 int main() {
    int dinheiro;
    double numero;
-   ofstream doc;
-   doc.open("dinheiro.dat");
+   ofstream dataC, dataA, dataB;
+   dataC.open("C.dat");
+   dataA.open("A.dat");
+   dataB.open("B.dat");
+
    for (int jogo = 0; jogo <= 50000; jogo++){
       dinheiro = 0;
       for (int jogada = 0; jogada <= 1000; jogada++){
@@ -46,9 +49,30 @@ int main() {
             B(dinheiro);
          }
       }
-      doc << dinheiro << "\n";
+      dataC << dinheiro << "\n";
    }
-   doc.close();
-   system("python3 plotC.py");
+
+   for (int jogo = 0; jogo <= 50000; jogo++){
+      dinheiro = 0;
+      for (int jogada = 0; jogada <= 1000; jogada++){
+         A(dinheiro);
+      }
+      dataA << dinheiro << "\n";
+   }
+
+   for (int jogo = 0; jogo <= 50000; jogo++){
+      dinheiro = 0;
+      for (int jogada = 0; jogada <= 1000; jogada++){
+         B(dinheiro);
+      }
+      dataB << dinheiro << "\n";
+   }
+
+
+
+   dataC.close();
+   dataB.close();
+   dataA.close();
+   system("python3 plot.py");
    return 0;
 }
