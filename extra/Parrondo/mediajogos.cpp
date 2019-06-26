@@ -41,35 +41,60 @@ void C(int &dinheiro){
 }
 
 int main() {
-   int dinheiroA, dinheiroB, dinheiroC;
-   double medA, medB, medC;
+   int dinheiroA, dinheiroB, dinheiroC, dinheiroD;
+   double medA, medB, medC, medD;
    double numero;
-   ofstream dataC, dataA, dataB;
+   int aux, aux2, aux3;
+   ofstream dataC, dataA, dataB, dataD;
    dataC.open("Cmed.dat");
    dataA.open("Amed.dat");
    dataB.open("Bmed.dat");
+   dataD.open("Dmed.dat");
 
    for (int jogtotais = 0; jogtotais <= 60; ++jogtotais){
       medA = 0;
       medB = 0;
       medC = 0;
-      for (int jogos = 0; jogos <= 100000; ++jogos){
+      medD = 0;
+      for (int jogos = 0; jogos <= 1000000; ++jogos){
          dinheiroA = 0;
          dinheiroB = 0;
          dinheiroC = 0;
+	 dinheiroD = 0;
+	 aux = 0;
+	 aux2 = 0;
+	 aux3 = 0;
          for (int i = 0; i <= jogtotais; ++i){
             A(dinheiroA);
             B(dinheiroB);
             C(dinheiroC);
-         }
-         medA += double(dinheiroA)/double(100000);
-         medB += double(dinheiroB)/double(100000);
-         medC += double(dinheiroC)/double(100000);
+	    if (aux % 2 == 0){
+		    if (aux2 % 2 == 0){
+		    	A(dinheiroD);
+		    } else {
+		    	B(dinheiroD);
+		    }
+		    aux2++;
+	    } else {
+		    if (aux3 % 2 == 0){
+		    	A(dinheiroD);
+		    } else {
+		    	B(dinheiroD);
+		    }
+		    aux3++;
+	    }
+	    aux++;
+	 }
+         medA += double(dinheiroA)/double(1000000);
+         medB += double(dinheiroB)/double(1000000);
+         medC += double(dinheiroC)/double(1000000);
+	 medD += double(dinheiroD)/double(1000000);
       }
       cout << jogtotais << endl;
       dataA << jogtotais << "\t" << medA << "\n";
       dataB << jogtotais << "\t" << medB << "\n";
       dataC << jogtotais << "\t" << medC << "\n";
+      dataD << jogtotais << "\t" << medD << "\n";
    }
 
 
@@ -77,6 +102,7 @@ int main() {
    dataC.close();
    dataB.close();
    dataA.close();
+   dataD.close();
    system("python3 plot2.py");
    return 0;
 }
