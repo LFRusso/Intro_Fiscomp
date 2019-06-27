@@ -355,6 +355,18 @@ Vamos ver o que está acontecendo em cada jogo com um pouco mais de precisão:
 \caption{Gráfico da média do dinheiro ao final do jogo em função do número de jogadas.}
 \end{figure}
 
-De maneira mais geral, pode-se verificar a ocorrência desse paradoxo para dois jogos cujo viés é igual à um certo $\epsilon$ (razoávelmente pequeno) contra o jogador, o segundo jogo contando com a existência de um loop de ordem $m$. No nosso caso, usamos $m = 3$, isto é, os jogos se repetem após m
+De maneira mais geral, pode-se verificar a ocorrência desse paradoxo para dois jogos cujo viés é igual à um certo $\epsilon$ (razoávelmente pequeno) contra o jogador, o segundo jogo contando com a existência de um loop de ordem $m > 2$, $m \in \mathbb{Z}$ e positivo. No nosso caso, usamos $m = 3$, isto é, os jogos se repetem após $m$ vitórias ou derrotas seguidas. Vale ressaltar que não necessáriamente o número de estados é igual à ordem do loop! Eles podem ser definidos como se achar melhor para trabalhar.
+
+\section*{Bibliografia}
+\begin{enumerate}
+	\item G. P. Hammer, D. Abbot, Losing strategies can win
+by Parrondo’s paradox, Nature, volume 402, página 864 (1999)
+
+	\item G. P. Hammer, D. Abbot, Parrondo’s Paradox, Statistical Science, Vol. 14, No. 2, 206 - 203, (1999)
+
+	\item L. Saloff-Coste, Lectures on Finite Markov Chains, Instituto de Matemática e Estatísca, Universidade de São Paulo
+	
+	\item A. Tolver, An Introduction to Markov Chains, Department of Mathematical Sciences, University of Copenhagen
+\end{enumerate}
 
 \end{document}
