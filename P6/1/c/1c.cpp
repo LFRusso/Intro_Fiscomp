@@ -36,11 +36,11 @@ int main(){
          }
          med /= 100;
          for(int i; i <= 100; i++){
-            E +=pow(Pi_Values[i] - med, 2);
+            E +=pow(Pi_Values[i] - med, 2)/n;
          }
          E = sqrt(E);
-         cout << count << endl;
+         cout << "números: 2^" << count << endl;
       }
-
+   cout << "Valor final:" << "\n" << "n = 2^" << count << "\n" << "pi = " << med << "+/-" << E << endl;
    return 0;
 }
