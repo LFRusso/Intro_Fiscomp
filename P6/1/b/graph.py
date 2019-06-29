@@ -41,9 +41,9 @@ plt.cla()
 
 
 plt.scatter(np.log(n), np.log(std), color = "green")
-x = np.linspace(np.log(n[0]), np.log(n[-1]), 1000)
+#x = np.linspace(np.log(n[0]), np.log(n[-1]), 1000)
 
-popt, pcov = curve_fit(f, np.log(n), np.log(std))
+#popt, pcov = curve_fit(f, np.log(n), np.log(std))
 #plt.plot(x, f(x, popt[0], popt[1]), color = "red")
 #plt.legend()
 plt.xlabel("$Ln(N)$")

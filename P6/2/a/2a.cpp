@@ -9,32 +9,31 @@ int main(){
 	double dt{0.005};
 	double r, m, number;
 	ofstream data;
-	int N0{10000}, N, u;
-	int k{10};
-	int t{7};
+	int N0{1000}, N, u;
+	int k{1000};
+	int t{10};
 	int iterations;
 	iterations = t/dt + 1;
-	double P[k+1][iterations+1];
+	data.open("dados.dat");
 
 	for(int i=0; i<=k; i++){
-		data.open("dados");
 		N = N0;
 		for(int j=0; j<=iterations; j++){
 			u = N;
 			for(int w=0; w<=u; w++){
 				number = double(rand() % int(pow(10, 5)))/pow(10, 5);
-				if(number < dt){
+				if(number < dt && N > 0){
 					--N;
 				}
 			}
-			//P[j][i] = N;
-			data << double(j)*dt << "\t" << N << "\n";
+			data << double(j)*dt << "\t" << N << "\t" << iterations << "\t" << k << "\n";
 		}
-		data.close();
-		system("python3 graph.py");
-		system("rm data");
+		cout << "Simulações concluídas: " << i << endl;
 	}
+	data.close();
 
+	cout << "Conlcuído\n\ncarregando gráfico..." << endl;
+	system("python3 graph.py");
 
 	return 0;
 }
