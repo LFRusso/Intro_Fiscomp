@@ -45,6 +45,8 @@ int main(){
       data3 << P << "\n";
    }
 
+
+   cout << "\nCarregando gráfico..." << endl;
    data1.close();
    data2.close();
    data3.close();

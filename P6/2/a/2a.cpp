@@ -15,6 +15,7 @@ int main(){
 	int iterations;
 	iterations = t/dt + 1;
 	data.open("dados.dat");
+	srand(42);
 
 	for(int i=0; i<=k; i++){
 		N = N0;

@@ -1,3 +1,5 @@
+# programa para plot do histograma
+
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
@@ -16,9 +18,6 @@ def histo(V):
 
 
 N, med = np.loadtxt("rmed.dat", delimiter = '\t', unpack = True)
-n, std = np.loadtxt("desvio.dat", delimiter = '\t', unpack = True)
-
-
 
 N1, med1= N[:100], med[:100]
 N2, med2 = N[101:201], med[101:201]
@@ -37,16 +36,3 @@ plt.grid()
 plt.ylabel("frequência")
 plt.xlabel("$<r>$")
 plt.savefig("histograma.png")
-plt.cla()	
-
-
-plt.scatter(np.log(n), np.log(std), color = "green")
-#x = np.linspace(np.log(n[0]), np.log(n[-1]), 1000)
-
-#popt, pcov = curve_fit(f, np.log(n), np.log(std))
-#plt.plot(x, f(x, popt[0], popt[1]), color = "red")
-#plt.legend()
-plt.xlabel("$Ln(N)$")
-plt.ylabel("$Ln(\delta <r>)$")
-plt.grid()
-plt.savefig("stdxn")
