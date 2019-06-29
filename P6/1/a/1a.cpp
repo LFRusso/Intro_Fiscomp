@@ -6,7 +6,7 @@
 #define k 100
 using namespace std;
 
-class distribuction{
+class distribuction{ // CLASSE PARA ARMAZENAR E OPERAR AS DISTRIBUIÇÕES
    int _size;
    vector<double> _elements;
 public:
@@ -44,16 +44,16 @@ int main(){
          }
          med = med/pow(3, m);
 
-         for(int x = 0; x <= int(pow(3, m)); ++x){
+         for(int x = 0; x <= int(pow(3, m)); ++x){ // calculo do desvio padrão
             stdev += pow((V -> display()[x]) - med,2);
          }
          stdev = sqrt(stdev/pow(3, m));
-         data << pow(3, m) << "\t" << stdev << "\t" << med << "\n";
+         data << pow(3, m) << "\t" << stdev << "\t" << med << "\n"; // salvando resultados
 
 
       }
    }
    data.close();
-   system("python3 graph.py");
+   system("python3 graph.py"); // plotando gráfico
    return 0;
 }

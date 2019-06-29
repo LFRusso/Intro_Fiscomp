@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-class distribuction{
+class distribuction{ // CLASSE PARA ARMAZENAR E OPERAR AS DISTRIBUIÇÕES
    int _size;
    vector<double> _elements;
 public:
@@ -57,11 +57,11 @@ int main(){
             V -> add(number);
          }
          data.precision(2);
-         data << pow(3, m) << "\t" << V->average() << "\n";
+         data << pow(3, m) << "\t" << V->average() << "\n"; // salvando média e tamanho dos vetores
       }
    }
 
    data.close();
-   system("python3 graph.py");
+   system("python3 graph.py"); // plot do gráfico
    return 0;
 }
